@@ -1,14 +1,18 @@
 var express = require('express'),
 	router = express.Router(),
 	bcrypt = require('bcrypt'),
+	jwt = require('jsonwebtoken'),
 	middleware = require('../../config/middleware');
+	
+// var clientSecret = fs.readFileSync('private.key'); // RSA SHA256
+var privateKey = 'privateKey'; // test key
 	
 const db = require('../../db'),
 	BCRYPT_SALT_ROUNDS = 12,
 	Users = db.User;
 	
 router.post('/login', (req, res) => {
-	// TODO: create JWT auth token; use Passport?
+	// TODO: use Passport?
 	if (!(req.body.hasOwnProperty('netid')) || !(req.body.hasOwnProperty('passwd'))) {
 		res.send('Missing required info');
 	} else {
@@ -18,9 +22,19 @@ router.post('/login', (req, res) => {
 			} else {
 				bcrypt.compare(req.body.passwd, user.passwd).then(result => {
 					if (result) {
-						// TODO: create JWT auth token
-						// TODO: redirect to /dashboard
-						res.redirect('/'); // temporary?
+						var user = {
+							netid: req.body.netid,
+							passwd: req.body.passwd
+						};
+						jwt.sign(user, privateKey, { algorithm: 'HS256' }, (err, token) => {
+							// TODO: if the choice is to switch to certification instead of client secret,
+							// this algorithm must be changed to RS256 for RSA SHA256
+							if (err) {
+								res.status(500).send(err);
+							} else {
+								res.send(token);
+							}
+						});
 					} else {
 						res.send('Invalid login. Username and password do not match');
 					}
