@@ -1,6 +1,9 @@
+const db = require('../../db'),
+	Users = db.User;
+
 // TODO: determine how to use strategies
 
-module.exports = (passport, Users, LocalStrategy) => {
+module.exports = (passport, LocalStrategy) => {
 	passport.use(new LocalStrategy({
 		usernameField: 'netid',
 		passwordField: 'passwd',
