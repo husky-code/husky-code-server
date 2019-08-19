@@ -1,14 +1,14 @@
 module.exports = {
 	authentication: {
         options: {
-            userName: 'username',
-            password: 'password'
+            userName: 'huskycode',
+            password: 'Betterpracticeit2019!'
         },
         type: 'default'
     },
-    server: 'server',
+    server: 'huskycode.database.windows.net',
     options: {
-        database: 'database',
+        database: 'HuskyCodeDataBase',
         encrypt: true,
         rowCollectionOnDone: true
     }

@@ -9,7 +9,9 @@ var express = require('express'),
 const PORT = process.env.PORT || 3000,
 	db = require('./db');
 	
-// const passportJWT = require('passport-jwt');
+// PASSPORT STRATEGIES
+var passportLocal = require('passport-local').Strategy,
+	passportJWT = require('passport-jwt').Strategy;
 	
 if (!db.connected()) {
 	db.init();
