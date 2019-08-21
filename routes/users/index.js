@@ -1,3 +1,5 @@
+// TODO: add auth middleware via Passport to user routes? e.g. for user profiles
+
 var express = require('express'),
 	router = express.Router(),
 	bcrypt = require('bcrypt');
@@ -10,12 +12,21 @@ const db = require('../../db'),
 router.get('/', (req, res) => { // For dev purposes only
 	Users.findAll().then(users => {
 		if (users == null) {
-			res.json('no existing users');
+			res.json({
+				status: res.statusCode,
+				msg: 'No existing users'
+			});
 		} else {
-			res.send(users);
+			res.json({
+				status: res.statusCode,
+				users: users
+			});
 		}
 	}).catch(err => {
-		res.status(500).json(err);
+		res.status(500).json({
+			status: res.statusCode,
+			err: err
+		});
 	});
 });
 
@@ -23,16 +34,26 @@ router.get('/', (req, res) => { // For dev purposes only
 router.get('/:netid', (req, res) => {
 	Users.findByPk(req.params.netid).then(user => {
 		if (user == null) {
-			res.json('user does not exist');
+			res.json({
+				status: res.statusCode,
+				msg: 'User does not exist'
+			});
 		} else {
-			res.send(user);
+			res.json({
+				status: res.statusCode,
+				user: user
+			});
 		}
 	}).catch(err => {
-		res.status(500).json(err);
+		res.status(500).json({
+			status: res.statusCode,
+			err: err
+		});
 	});
 });
 
 // PUT updated user information, must update all fields
+// TODO: is this route even necessary?
 router.put('/:netid', (req, res) => {
 	//db.query('user', req, res);
 });
@@ -45,8 +66,10 @@ router.patch('/:netid', (req, res) => {
 		}
 	}).then(user => {
 		if (user == null) {
-			console.log('user does not exist');
-			res.json('user does not exist');
+			res.json({
+				status: res.statusCode,
+				msg: 'User does not exist'
+			});
 		} else {
 			var json = "";
 			Object.keys(req.body).forEach((key, i) => {
@@ -66,11 +89,17 @@ router.patch('/:netid', (req, res) => {
 					netid: req.params.netid
 				}
 			}).then(() => {
-				res.send('Query succeeded');
+				res.json({
+					status: res.statusCode,
+					msg: 'User information successfully updated'
+				});
 			});
 		}
 	}).catch(err => {
-		res.status(500).json(err);
+		res.status(500).json({
+			status: res.statusCode,
+			err: err
+		});
 	});
 });
 
@@ -82,19 +111,27 @@ router.delete('/:netid', (req, res) => {
 		}
 	}).then(user => {
 		if (user == null) {
-			console.log('user does not exist');
-			res.json('user does not exist');
+			res.json({
+				status: res.statusCode,
+				msg: 'User does not exist'
+			});
 		} else {
 			Users.destroy({
 				where: {
 					netid: req.params.netid
 				}
 			}).then(() => {
-				res.send('Query succeeded');
+				res.json({
+					status: res.statusCode,
+					msg: 'User successfully deleted'
+				});
 			});
 		}
 	}).catch(err => {
-		res.status(500).json(err);
+		res.status(500).json({
+			status: res.statusCode,
+			err: err
+		});
 	});
 });
 

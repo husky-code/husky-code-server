@@ -2,10 +2,7 @@ var express = require('express'),
 	router = express.Router();
 
 router.get('/', (req, res) => {
-	// TODO: authentication, redirect to login/register
-//  if (middleware.isAuthenticated) {
-// 		res.redirect('/dashboard');
-// 	}
+	// TODO: what should be done with this route?
 	res.send('<h1>Hello World!</h1>');
 });
 
