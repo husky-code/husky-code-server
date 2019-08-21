@@ -1,6 +1,5 @@
 var express = require('express'),
-	router = express.Router(),
-	middleware = require('../config/middleware');
+	router = express.Router();
 
 router.get('/', (req, res) => {
 	// TODO: authentication, redirect to login/register
@@ -10,8 +9,8 @@ router.get('/', (req, res) => {
 	res.send('<h1>Hello World!</h1>');
 });
 
-/* API routes */
-router.use('/api', require('./api'));
+/* Auth routes */
+router.use('/auth', require('./auth'));
 
 /* Models routes */
 router.use('/users', require('./users'));

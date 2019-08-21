@@ -9,13 +9,11 @@ var express = require('express'),
 const PORT = process.env.PORT || 3000,
 	db = require('./db');
 	
-// PASSPORT STRATEGIES
-var passportLocal = require('passport-local').Strategy,
-	passportJWT = require('passport-jwt').Strategy;
-	
 if (!db.connected()) {
 	db.init();
 }
+
+// require('./config/passport');
 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,7 +22,7 @@ app.use(cors());
 // app.use(express.static("public"));
 
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 app.set('port', PORT);
 
