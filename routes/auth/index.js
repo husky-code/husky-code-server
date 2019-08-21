@@ -10,7 +10,7 @@ const db = require('../../db'),
 	BCRYPT_SALT_ROUNDS = 12,
 	Users = db.User;
 
-// Authenticate user	
+// Authenticate user
 router.post('/login', (req, res) => {
 	// TODO: use Passport?
 	if (!(req.body.hasOwnProperty('netid')) || !(req.body.hasOwnProperty('passwd'))) {
