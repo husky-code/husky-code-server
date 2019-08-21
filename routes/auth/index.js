@@ -1,7 +1,8 @@
 var express = require('express'),
 	router = express.Router(),
 	bcrypt = require('bcrypt'),
-	jwt = require('jsonwebtoken');
+	jwt = require('jsonwebtoken'),
+	fs = require('fs');
 	
 // var clientSecret = fs.readFileSync('private.key'); // RSA SHA256
 var privateKey = 'privateKey'; // test key
