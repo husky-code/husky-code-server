@@ -33,7 +33,11 @@ router.post('/login', (req, res) => {
 							netid: req.body.netid,
 							passwd: req.body.passwd
 						};
-						jwt.sign(user, privateKey, { algorithm: 'HS256' }, (err, token) => {
+						var signConfig = {
+							algorithm: 'HS256',
+							expiresIn: '2h'
+						};
+						jwt.sign(user, privateKey, signConfig, (err, token) => {
 							// TODO: if the choice is to switch to certification instead of client secret,
 							// this algorithm must be changed to RS256 for RSA SHA256
 							if (err) {
