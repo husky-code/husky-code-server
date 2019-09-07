@@ -1,7 +1,8 @@
 var Sequelize = require('sequelize');
 
 const config = require('./config'),
-	UserModel = require('../models/user');
+	UserModel = require('../models/user'),
+	ProblemModel = require('../models/problem');
 
 var connected = false;
 
@@ -30,5 +31,6 @@ module.exports = {
 	connected: () => {
 		return connected;
 	},
-	User: UserModel(sequelize, Sequelize)
+	User: UserModel(sequelize, Sequelize),
+	Problem: ProblemModel(sequelize, Sequelize)
 };
