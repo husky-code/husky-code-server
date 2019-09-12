@@ -1,11 +1,12 @@
+// TODO: update Azure tables
 module.exports = (sequelize, type) => {
 	return sequelize.define('problem', {
-		problemid: {
+		id: {
 			type: type.INTEGER,
 			primaryKey: true,
 			allowNull: false
 		},
-		problemName: {
+		name: {
 			type: type.STRING,
 			allowNull: false
 		},
@@ -14,6 +15,10 @@ module.exports = (sequelize, type) => {
 			allowNull: false
 		},
 		lang: {
+			type: type.STRING,
+			allowNull: false
+		},
+		course: {
 			type: type.STRING,
 			allowNull: false
 		},
