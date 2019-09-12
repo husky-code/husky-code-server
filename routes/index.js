@@ -11,6 +11,7 @@ router.use('/auth', require('./auth'));
 
 /* Models routes */
 router.use('/users', require('./users'));
+router.use('/problems', require('./problems'));
 
 // Handle HTTP Error 404 (page not found)
 router.get('*', (req, res) => {
