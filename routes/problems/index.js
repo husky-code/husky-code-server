@@ -53,4 +53,31 @@ router.get('/:course', (req, res) => {
 	});
 });
 
+// TODO: correct req param and model field
+router.get('/:course/:topic', (req, res) => {
+	Problems.findAll({
+		where: {
+			course: req.params.course,
+			topic: req.params.topic
+		}
+	}).then(problems => {
+		if (problems === null) {
+			res.json({
+				status: res.statusCode,
+				msg: 'No existing problems listed under that course and topic'
+			});
+		} else {
+			res.json({
+				status: res.statusCode,
+				problems: problems
+			});
+		}
+	}).catch(err => {
+		res.status(500).json({
+			status: res.statusCode,
+			err: err
+		});
+	});
+});
+
 module.exports = router;
