@@ -1,12 +1,12 @@
-// TODO: update Azure tables
 module.exports = (sequelize, type) => {
 	return sequelize.define('problem', {
-		id: {
+		// TODO: rename problemid and problemName as id and name in Azure
+		problemid: {
 			type: type.INTEGER,
 			primaryKey: true,
 			allowNull: false
 		},
-		name: {
+		problemName: {
 			type: type.STRING,
 			allowNull: false
 		},

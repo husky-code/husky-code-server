@@ -15,7 +15,10 @@ router.use('/problems', require('./problems'));
 
 // Handle HTTP Error 404 (page not found)
 router.get('*', (req, res) => {
-	res.status(404).send('<h1>Error 404: Page not found</h1><hr>');
+	res.status(404).json({
+		status: res.statusCode,
+		msg: 'The URL specified does not exist'
+	});
 });
 
 module.exports = router;

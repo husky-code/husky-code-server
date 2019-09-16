@@ -27,22 +27,30 @@ router.get('/', (req, res) => { // For dev purposes only
 	});
 });
 
-// TODO: correct req param and model field
+// GET available topics for a course
 router.get('/:course', (req, res) => {
 	Problems.findAll({
+		attributes: ['topic'],
 		where: {
 			course: req.params.course
 		}
-	}).then(problems => {
-		if (problems === null) {
+	}).then(topics => {
+		if (topics === null) {
 			res.json({
 				status: res.statusCode,
-				msg: 'No existing problems listed under that course'
+				msg: 'No existing topics listed under that course'
 			});
 		} else {
+			var topicList = [];
+			topics.forEach((item) => {
+				if (item.topic && !topicList.some(topic => topic === item.topic)) {
+					topicList.push(item.topic);
+				}
+			});
 			res.json({
 				status: res.statusCode,
-				problems: problems
+				course: req.params.course,
+				topics: topicList
 			});
 		}
 	}).catch(err => {
@@ -53,7 +61,7 @@ router.get('/:course', (req, res) => {
 	});
 });
 
-// TODO: correct req param and model field
+// TODO: correct model fields
 router.get('/:course/:topic', (req, res) => {
 	Problems.findAll({
 		where: {
